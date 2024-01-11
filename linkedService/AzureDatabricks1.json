@@ -18,7 +18,7 @@
 			"newClusterDriverNodeType": "Standard_DS3_v2",
 			"clusterOption": "Fixed",
 			"newClusterInitScripts": [
-				"/Shared/init.sh"
+				"/Volumes/test_catalog/schema1/init/init.sh"
 			]
 		}
 	}
