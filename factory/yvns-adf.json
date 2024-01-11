@@ -1,0 +1,15 @@
+{
+	"name": "yvns-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "ccac6f0d-063f-46f6-881b-a2f955baee95",
+		"tenantId": "10c9b384-0394-4e62-93a7-b582820daf27",
+		"userAssignedIdentities": {
+			"/subscriptions/c8381a9c-98ad-4738-8c14-4019f488f797/resourcegroups/rg-dp203/providers/Microsoft.ManagedIdentity/userAssignedIdentities/adf-id": {
+				"clientId": "12c53d5d-633e-4fc7-9f96-f566601fb253",
+				"principalId": "28acab18-0b4c-4a45-bd89-fb0265bc986a"
+			}
+		}
+	}
+}
