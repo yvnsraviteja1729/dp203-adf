@@ -1,0 +1,17 @@
+{
+	"name": "CETAS SP",
+	"properties": {
+		"content": {
+			"query": "-- DROP PROCEDURE parque_log\n\nCREATE PROCEDURE parque_log @category VARCHAR(50),@name VARCHAR(50)\nAS\nBEGIN\n    IF EXISTS (\n                SELECT * FROM  [dbo].[parque_log]\n            )\n        DROP EXTERNAL TABLE [dbo].[parque_log]\n    GO\n\n    IF NOT EXISTS (\n            SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat'\n        ) \n        CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n        WITH (\n             FORMAT_TYPE = PARQUET\n        )\n    GO    \n    \n    IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n        CREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n        WITH (\n            LOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n        )\n    GO   \n\n    CREATE EXTERNAL TABLE [dbo].[@name] \n    WITH(   \n            LOCATION = 'parquet_modified/3',\n            DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n            FILE_FORMAT = SynapseParquetFormat\n            \n    )AS\n    SELECT * FROM OPENROWSET(\n            BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n            FORMAT = 'PARQUET'\n        ) AS [result]\n    WHERE STATUS = @category\nEND\n\n\n-- EXEC parque_log @category='Succeeded',@name='parquelogs3'\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "yvns",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

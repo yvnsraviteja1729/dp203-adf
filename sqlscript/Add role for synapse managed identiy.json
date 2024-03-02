@@ -1,0 +1,17 @@
+{
+	"name": "Add role for synapse managed identiy",
+	"properties": {
+		"content": {
+			"query": "CREATE LOGIN [sy-dp203-01]\n\tFROM EXTERNAL PROVIDER\n\nCREATE USER [sy-dp203-01]\n   FROM LOGIN [sy-dp203-01]\n\nALTER ROLE db_owner ADD MEMBER [sy-dp203-01]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "yvns",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
