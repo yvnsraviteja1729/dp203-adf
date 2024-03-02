@@ -1,0 +1,162 @@
+{
+	"name": "csv to json",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Correlation id",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Correlation id"
+								}
+							},
+							{
+								"source": {
+									"name": "Operation name",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Operation name"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Status"
+								}
+							},
+							{
+								"source": {
+									"name": "Event category",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Event category"
+								}
+							},
+							{
+								"source": {
+									"name": "Level",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Level"
+								}
+							},
+							{
+								"source": {
+									"name": "Time",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Time"
+								}
+							},
+							{
+								"source": {
+									"name": "Subscription",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Subscription"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Resource"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource group",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Resource group"
+								}
+							},
+							{
+								"source": {
+									"name": "Resource type",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Resource type"
+								}
+							},
+							{
+								"source": {
+									"name": "Event initiated by",
+									"type": "String"
+								},
+								"sink": {
+									"path": "Event initiated by"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-03-02T14:16:05Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

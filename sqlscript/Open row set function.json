@@ -1,0 +1,17 @@
+{
+	"name": "Open row set function",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 100 *\nFROM OPENROWSET(\n    BULK 'abfss://files@sayvnsdp20302.dfs.core.windows.net/csv/*.csv',\n    FORMAT = 'csv',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE)\n AS rows\n\nSELECT *\nFROM\n    OPENROWSET(\n        BULK 'abfss://files@sayvnsdp20302.dfs.core.windows.net/json/*.json',\n        FORMAT = 'csv',\n        FIELDTERMINATOR ='0x0b',\n        FIELDQUOTE = '0x0b',\n        ROWTERMINATOR = '0x0b'\n    ) WITH (doc NVARCHAR(MAX)) as rows ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

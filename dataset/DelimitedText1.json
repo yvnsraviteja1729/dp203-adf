@@ -1,0 +1,70 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Log.csv",
+				"folderPath": "csv",
+				"fileSystem": "files"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Correlation id",
+				"type": "String"
+			},
+			{
+				"name": "Operation name",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "Event category",
+				"type": "String"
+			},
+			{
+				"name": "Level",
+				"type": "String"
+			},
+			{
+				"name": "Time",
+				"type": "String"
+			},
+			{
+				"name": "Subscription",
+				"type": "String"
+			},
+			{
+				"name": "Event initiated by",
+				"type": "String"
+			},
+			{
+				"name": "Resource type",
+				"type": "String"
+			},
+			{
+				"name": "Resource group",
+				"type": "String"
+			},
+			{
+				"name": "Resource",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

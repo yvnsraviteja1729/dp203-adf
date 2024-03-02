@@ -1,0 +1,17 @@
+{
+	"name": "CETAS",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE [dbo].[parque_logs] \n   WITH(\n        LOCATION = 'parquet_modified/',\n        DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n        FILE_FORMAT = SynapseParquetFormat\n   )AS\nSELECT TOP 100 * FROM OPENROWSET(\n        BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n\n-- you can query the newly created external table\nSELECT * FROM [dbo].[parque_logs] ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "yvns",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseDelimitedTextFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseDelimitedTextFormat] \n\tWITH ( FORMAT_TYPE = DELIMITEDTEXT ,\n\t       FORMAT_OPTIONS (\n\t\t\t FIELD_TERMINATOR = ',',\n\t\t\t FIRST_ROW = 01,\n\t\t\t USE_TYPE_DEFAULT = FALSE\n\t\t\t))\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.logs (\n\t[Correlation id] uniqueidentifier,\n\t[Operation name] nvarchar(4000),\n\t[Status] nvarchar(4000),\n\t[Event category] nvarchar(4000),\n\t[Level] nvarchar(4000),\n\t[Time] datetime2(0),\n\t[Subscription] uniqueidentifier,\n\t[Event initiated by] nvarchar(4000),\n\t[Resource type] nvarchar(4000),\n\t[Resource group] nvarchar(4000),\n\t[Resource] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'csv/Log.csv',\n\tDATA_SOURCE = [files_sayvnsdp20302_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDelimitedTextFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.logs\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "yvns",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

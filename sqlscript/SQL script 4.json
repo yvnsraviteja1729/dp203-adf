@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 4",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.logs_parqet (\n\t[Correlation_id] nvarchar(4000),\n\t[Operation_name] nvarchar(4000),\n\t[Status] nvarchar(4000),\n\t[Event_category] nvarchar(4000),\n\t[Level] nvarchar(4000),\n\t[Time] nvarchar(4000),\n\t[Subscription] nvarchar(4000),\n\t[Event_initiated_by] nvarchar(4000),\n\t[Resource_type] nvarchar(4000),\n\t[Resource_group] nvarchar(4000),\n\t[Resource] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'parquet/Log.parquet',\n\tDATA_SOURCE = [files_sayvnsdp20302_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.logs_parqet\nGO\n\n-- DROP EXTERNAL TABLE dbo.logs_parqet",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "yvns",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
