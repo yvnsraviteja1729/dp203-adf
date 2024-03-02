@@ -27,7 +27,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('workspaceName'), '/Pipeline 1')]",
+			"name": "[concat(parameters('workspaceName'), '/Execute_stored_procedure')]",
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -35,7 +35,14 @@
 					{
 						"name": "Stored procedure1",
 						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Delete1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -48,11 +55,7 @@
 							"storedProcedureName": "[dbo].[parque_log]",
 							"storedProcedureParameters": {
 								"category": {
-									"value": "Succeeded",
-									"type": "String"
-								},
-								"name": {
-									"value": "parquelogs3",
+									"value": "failed",
 									"type": "String"
 								}
 							}
@@ -60,6 +63,39 @@
 						"linkedServiceName": {
 							"referenceName": "AzureSynapseAnalytics1",
 							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Delete1",
+						"type": "Delete",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"logStorageSettings": {
+								"linkedServiceName": {
+									"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"path": "files"
+							},
+							"enableLogging": true,
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							}
 						}
 					}
 				],
@@ -69,7 +105,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/AzureSynapseAnalytics1')]"
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSynapseAnalytics1')]",
+				"[concat(variables('workspaceId'), '/datasets/Parquet1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/sy-dp203-01-WorkspaceDefaultStorage')]"
 			]
 		},
 		{
@@ -560,7 +598,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "parquet",
+						"folderPath": "parquet_modified/3",
 						"fileSystem": "files"
 					},
 					"compressionCodec": "snappy"
@@ -701,7 +739,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "-- DROP PROCEDURE parque_log\n\nCREATE PROCEDURE parque_log @category VARCHAR(50),@name VARCHAR(50)\nAS\nBEGIN\n    IF EXISTS (\n                SELECT * FROM  [dbo].[parque_log]\n            )\n        DROP EXTERNAL TABLE [dbo].[parque_log]\n    GO\n\n    IF NOT EXISTS (\n            SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat'\n        ) \n        CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n        WITH (\n             FORMAT_TYPE = PARQUET\n        )\n    GO    \n    \n    IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n        CREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n        WITH (\n            LOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n        )\n    GO   \n\n    CREATE EXTERNAL TABLE [dbo].[@name] \n    WITH(   \n            LOCATION = 'parquet_modified/3',\n            DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n            FILE_FORMAT = SynapseParquetFormat\n            \n    )AS\n    SELECT * FROM OPENROWSET(\n            BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n            FORMAT = 'PARQUET'\n        ) AS [result]\n    WHERE STATUS = @category\nEND\n\n\n-- EXEC parque_log @category='Succeeded',@name='parquelogs3'\n\n",
+					"query": "DROP PROCEDURE parque_log\n\nCREATE PROCEDURE parque_log @category VARCHAR(50)\nAS\nBEGIN\n    IF EXISTS (\n                SELECT * FROM  sys.external_tables WHERE name = 'parquelogs'\n            )\n        DROP EXTERNAL TABLE parquelogs\n\n    IF NOT EXISTS (\n            SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat'\n        ) \n        CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n        WITH (\n             FORMAT_TYPE = PARQUET\n        )\n    -- GO    \n    \n    IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n        CREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n        WITH (\n            LOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n        )\n    -- GO   \n\n    CREATE EXTERNAL TABLE [dbo].[parquelogs] \n    WITH(   \n            LOCATION = 'parquet_modified/3',\n            DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n            FILE_FORMAT = SynapseParquetFormat\n            \n    )AS\n    SELECT * FROM OPENROWSET(\n            BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n            FORMAT = 'PARQUET'\n        ) AS [result]\n    WHERE STATUS = @category\nEND\n\n\nEXEC parque_log @category='Succeeded'\n\nSELECT * from [dbo].[parquelogs]\n\n",
 					"metadata": {
 						"language": "sql"
 					},
