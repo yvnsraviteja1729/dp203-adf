@@ -1,0 +1,884 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"type": "string",
+			"metadata": "Workspace name",
+			"defaultValue": "sy-dp203-01"
+		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sy-dp203-01-ondemand.sql.azuresynapse.net;Initial Catalog=yvns"
+		},
+		"sy-dp203-01-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sy-dp203-01-WorkspaceDefaultSqlServer'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:sy-dp203-01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"sy-dp203-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://sayvnsdp20302.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('workspaceName'), '/Pipeline 1')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Stored procedure1",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[dbo].[parque_log]",
+							"storedProcedureParameters": {
+								"category": {
+									"value": "Succeeded",
+									"type": "String"
+								},
+								"name": {
+									"value": "parquelogs3",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSynapseAnalytics1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSynapseAnalytics1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/csv to json')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Correlation id",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Correlation id"
+										}
+									},
+									{
+										"source": {
+											"name": "Operation name",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Operation name"
+										}
+									},
+									{
+										"source": {
+											"name": "Status",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Status"
+										}
+									},
+									{
+										"source": {
+											"name": "Event category",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Event category"
+										}
+									},
+									{
+										"source": {
+											"name": "Level",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Level"
+										}
+									},
+									{
+										"source": {
+											"name": "Time",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Time"
+										}
+									},
+									{
+										"source": {
+											"name": "Subscription",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Subscription"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Resource"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource group",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Resource group"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource type",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Resource type"
+										}
+									},
+									{
+										"source": {
+											"name": "Event initiated by",
+											"type": "String"
+										},
+										"sink": {
+											"path": "Event initiated by"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-03-02T14:16:05Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('workspaceId'), '/datasets/Json1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/csv to parquet')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Correlation id",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Correlation_id",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Operation name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Operation_name",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Status",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Status",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Event category",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Event_category",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Level",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Level",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Time",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Time",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Subscription",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Subscription",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Event initiated by",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Event_initiated_by",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource type",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Resource_type",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource group",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Resource_group",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Resource",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Resource",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-03-02T14:30:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('workspaceId'), '/datasets/Parquet1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DelimitedText1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Log.csv",
+						"folderPath": "csv",
+						"fileSystem": "files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Correlation id",
+						"type": "String"
+					},
+					{
+						"name": "Operation name",
+						"type": "String"
+					},
+					{
+						"name": "Status",
+						"type": "String"
+					},
+					{
+						"name": "Event category",
+						"type": "String"
+					},
+					{
+						"name": "Level",
+						"type": "String"
+					},
+					{
+						"name": "Time",
+						"type": "String"
+					},
+					{
+						"name": "Subscription",
+						"type": "String"
+					},
+					{
+						"name": "Event initiated by",
+						"type": "String"
+					},
+					{
+						"name": "Resource type",
+						"type": "String"
+					},
+					{
+						"name": "Resource group",
+						"type": "String"
+					},
+					{
+						"name": "Resource",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/sy-dp203-01-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Json1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "json",
+						"fileSystem": "files"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/sy-dp203-01-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Parquet1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "parquet",
+						"fileSystem": "files"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/sy-dp203-01-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSynapseAnalytics1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSynapseAnalytics1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sy-dp203-01-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('sy-dp203-01-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sy-dp203-01-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('sy-dp203-01-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
+			"type": "Microsoft.Synapse/workspaces/credentials",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/default')]",
+			"type": "Microsoft.Synapse/workspaces/managedVirtualNetworks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Add role for synapse managed identiy')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE LOGIN [sy-dp203-01]\n\tFROM EXTERNAL PROVIDER\n\nCREATE USER [sy-dp203-01]\n   FROM LOGIN [sy-dp203-01]\n\nALTER ROLE db_owner ADD MEMBER [sy-dp203-01]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "yvns",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CETAS SP')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- DROP PROCEDURE parque_log\n\nCREATE PROCEDURE parque_log @category VARCHAR(50),@name VARCHAR(50)\nAS\nBEGIN\n    IF EXISTS (\n                SELECT * FROM  [dbo].[parque_log]\n            )\n        DROP EXTERNAL TABLE [dbo].[parque_log]\n    GO\n\n    IF NOT EXISTS (\n            SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat'\n        ) \n        CREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n        WITH (\n             FORMAT_TYPE = PARQUET\n        )\n    GO    \n    \n    IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n        CREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n        WITH (\n            LOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n        )\n    GO   \n\n    CREATE EXTERNAL TABLE [dbo].[@name] \n    WITH(   \n            LOCATION = 'parquet_modified/3',\n            DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n            FILE_FORMAT = SynapseParquetFormat\n            \n    )AS\n    SELECT * FROM OPENROWSET(\n            BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n            FORMAT = 'PARQUET'\n        ) AS [result]\n    WHERE STATUS = @category\nEND\n\n\n-- EXEC parque_log @category='Succeeded',@name='parquelogs3'\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "yvns",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CETAS')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE [dbo].[parque_logs] \n   WITH(\n        LOCATION = 'parquet_modified/',\n        DATA_SOURCE = files_sayvnsdp20302_dfs_core_windows_net,\n        FILE_FORMAT = SynapseParquetFormat\n   )AS\nSELECT TOP 100 * FROM OPENROWSET(\n        BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n\n-- you can query the newly created external table\nSELECT * FROM [dbo].[parque_logs] ",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "yvns",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Open row set function')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP 100 *\nFROM OPENROWSET(\n    BULK 'abfss://files@sayvnsdp20302.dfs.core.windows.net/csv/*.csv',\n    FORMAT = 'csv',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE)\n AS rows\n\nSELECT *\nFROM\n    OPENROWSET(\n        BULK 'abfss://files@sayvnsdp20302.dfs.core.windows.net/json/*.json',\n        FORMAT = 'csv',\n        FIELDTERMINATOR ='0x0b',\n        FIELDQUOTE = '0x0b',\n        ROWTERMINATOR = '0x0b'\n    ) WITH (doc NVARCHAR(MAX)) as rows ",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseDelimitedTextFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseDelimitedTextFormat] \n\tWITH ( FORMAT_TYPE = DELIMITEDTEXT ,\n\t       FORMAT_OPTIONS (\n\t\t\t FIELD_TERMINATOR = ',',\n\t\t\t FIRST_ROW = 01,\n\t\t\t USE_TYPE_DEFAULT = FALSE\n\t\t\t))\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.logs (\n\t[Correlation id] uniqueidentifier,\n\t[Operation name] nvarchar(4000),\n\t[Status] nvarchar(4000),\n\t[Event category] nvarchar(4000),\n\t[Level] nvarchar(4000),\n\t[Time] datetime2(0),\n\t[Subscription] uniqueidentifier,\n\t[Event initiated by] nvarchar(4000),\n\t[Resource type] nvarchar(4000),\n\t[Resource group] nvarchar(4000),\n\t[Resource] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'csv/Log.csv',\n\tDATA_SOURCE = [files_sayvnsdp20302_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDelimitedTextFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.logs\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "yvns",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- This is auto-generated code\nSELECT TOP 100\n    jsonContent\n/* --> place the keys that you see in JSON documents in the WITH clause:\n       , JSON_VALUE (jsonContent, '$.key1') AS header1\n       , JSON_VALUE (jsonContent, '$.key2') AS header2\n*/\nFROM\n    OPENROWSET(\n        BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/json/Log.json',\n        FORMAT = 'CSV',\n        FIELDQUOTE = '0x0b',\n        FIELDTERMINATOR ='0x0b',\n        ROWTERMINATOR = '0x0b'\n    )\n    WITH (\n        jsonContent varchar(MAX)\n    ) AS [result]\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 3')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://sayvnsdp20302.dfs.core.windows.net/files/parquet/Log.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 4')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'files_sayvnsdp20302_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [files_sayvnsdp20302_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://files@sayvnsdp20302.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.logs_parqet (\n\t[Correlation_id] nvarchar(4000),\n\t[Operation_name] nvarchar(4000),\n\t[Status] nvarchar(4000),\n\t[Event_category] nvarchar(4000),\n\t[Level] nvarchar(4000),\n\t[Time] nvarchar(4000),\n\t[Subscription] nvarchar(4000),\n\t[Event_initiated_by] nvarchar(4000),\n\t[Resource_type] nvarchar(4000),\n\t[Resource_group] nvarchar(4000),\n\t[Resource] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'parquet/Log.parquet',\n\tDATA_SOURCE = [files_sayvnsdp20302_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.logs_parqet\nGO\n\n-- DROP EXTERNAL TABLE dbo.logs_parqet",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "yvns",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/default/synapse-ws-custstgacct--sy-dp203-01-sayvnsdp20302')]",
+			"type": "Microsoft.Synapse/workspaces/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"privateLinkResourceId": "/subscriptions/8f7ac065-9fb5-428e-afc3-96700169b56e/resourceGroups/rg-dp203-01/providers/Microsoft.Storage/storageAccounts/sayvnsdp20302",
+				"groupId": "dfs",
+				"fqdns": [
+					"sayvnsdp20302.dfs.core.windows.net"
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/default/synapse-ws-sql--sy-dp203-01')]",
+			"type": "Microsoft.Synapse/workspaces/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"privateLinkResourceId": "/subscriptions/8f7ac065-9fb5-428e-afc3-96700169b56e/resourceGroups/rg-dp203-01/providers/Microsoft.Synapse/workspaces/sy-dp203-01",
+				"groupId": "sql",
+				"fqdns": [
+					"sy-dp203-01.0a9d22d7-4828-4256-a612-9369e4aaef5b.sql.azuresynapse.net"
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/default/synapse-ws-sqlOnDemand--sy-dp203-01')]",
+			"type": "Microsoft.Synapse/workspaces/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"privateLinkResourceId": "/subscriptions/8f7ac065-9fb5-428e-afc3-96700169b56e/resourceGroups/rg-dp203-01/providers/Microsoft.Synapse/workspaces/sy-dp203-01",
+				"groupId": "sqlOnDemand",
+				"fqdns": [
+					"sy-dp203-01-ondemand.0a9d22d7-4828-4256-a612-9369e4aaef5b.sql.azuresynapse.net"
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
+			]
+		}
+	]
+}
