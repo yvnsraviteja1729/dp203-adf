@@ -1,11 +1,18 @@
 {
-	"name": "Pipeline 1",
+	"name": "Execute_stored_procedure",
 	"properties": {
 		"activities": [
 			{
 				"name": "Stored procedure1",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Delete1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -18,11 +25,7 @@
 					"storedProcedureName": "[dbo].[parque_log]",
 					"storedProcedureParameters": {
 						"category": {
-							"value": "Succeeded",
-							"type": "String"
-						},
-						"name": {
-							"value": "parquelogs3",
+							"value": "failed",
 							"type": "String"
 						}
 					}
@@ -30,6 +33,38 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseAnalytics1",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Delete1",
+				"type": "Delete",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "sy-dp203-01-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "files"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
 				}
 			}
 		],
