@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 5",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [AirbridgeId]\n,[AirbridgeName]\n,[AirportGateId]\n,[LocationGpsLongitudePosition]\n,[LocationGpsLatitudePosition]\n,[SecurityLevelId]\n FROM [Database1].[dbo].[Airbridge]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Database1",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
