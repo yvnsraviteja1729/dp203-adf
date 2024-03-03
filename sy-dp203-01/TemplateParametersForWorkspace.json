@@ -11,6 +11,9 @@
 		"sy-dp203-01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:sy-dp203-01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"ls_sayvnsdp20302_properties_typeProperties_url": {
+			"value": "https://sayvnsdp20302.dfs.core.windows.net/"
+		},
 		"sy-dp203-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://sayvnsdp20302.dfs.core.windows.net"
 		}
