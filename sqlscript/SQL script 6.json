@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 6",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [AirbridgeId]\n,[AirbridgeName]\n,[AirportGateId]\n,[LocationGpsLongitudePosition]\n,[LocationGpsLatitudePosition]\n,[SecurityLevelId]\n FROM [Database1].[dbo].[Airbridge]\n\nINSERT INTO [Database1].[dbo].[custom] values (1,'ravi',32,'3652487913')\nselect * from custom",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Database1",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
