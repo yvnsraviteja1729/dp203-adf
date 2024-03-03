@@ -17,8 +17,8 @@
 					"Name": "id",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -31,8 +31,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -45,8 +45,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -59,8 +59,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -75,7 +75,7 @@
 				"FormatType": "csv",
 				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
 				"Properties": {
-					"path": "abfss://lake-database@sayvnsdp20302.dfs.core.windows.net/",
+					"path": "abfss://files@sayvnsdp20302.dfs.core.windows.net/mock",
 					"delimiter": ",",
 					"multiLine": "false",
 					"firstRowAsHeader": "false",
@@ -88,9 +88,9 @@
 			},
 			"Source": {
 				"Provider": "ADLS",
-				"Location": "abfss://lake-database@sayvnsdp20302.dfs.core.windows.net/",
+				"Location": "abfss://files@sayvnsdp20302.dfs.core.windows.net/mock",
 				"Properties": {
-					"LinkedServiceName": "ls_sayvnsdp20302",
+					"LinkedServiceName": "sy-dp203-01-WorkspaceDefaultStorage",
 					"LocationSetToDatabaseDefault": false
 				}
 			},
@@ -106,8 +106,7 @@
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "id",
-			"spark.sql.sources.provider": "csv",
-			"sql:IsAppendOnly": false
+			"spark.sql.sources.provider": "csv"
 		},
 		"Retention": 0,
 		"Temporary": false,

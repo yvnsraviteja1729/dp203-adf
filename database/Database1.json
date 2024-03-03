@@ -12,10 +12,10 @@
 		},
 		"Source": {
 			"Provider": "ADLS",
-			"Location": "abfss://lake-database@sayvnsdp20302.dfs.core.windows.net/",
+			"Location": "abfss://files@sayvnsdp20302.dfs.core.windows.net/mock",
 			"Properties": {
 				"FormatType": "csv",
-				"LinkedServiceName": "ls_sayvnsdp20302"
+				"LinkedServiceName": "sy-dp203-01-WorkspaceDefaultStorage"
 			}
 		}
 	},
