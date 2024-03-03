@@ -1,0 +1,26 @@
+{
+	"name": "relationship-nweupgbiga",
+	"properties": {
+		"Name": "relationship-nweupgbiga",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "mock"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Order",
+		"ToTableName": "OrderActivity",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "OrderId",
+				"ToColumnName": "OrderId"
+			}
+		],
+		"RelationshipType": 0,
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Order.cdm.json/Order\",\"toEntity\":\"OrderActivity.cdm.json/OrderActivity\",\"joinPairs\":[{\"fromAttribute\":\"OrderId\",\"toAttribute\":\"OrderId\"}]}}"
+		}
+	},
+	"type": "RELATIONSHIP"
+}

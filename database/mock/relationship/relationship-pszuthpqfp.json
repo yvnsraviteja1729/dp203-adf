@@ -1,0 +1,26 @@
+{
+	"name": "relationship-pszuthpqfp",
+	"properties": {
+		"Name": "relationship-pszuthpqfp",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "mock"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Order",
+		"ToTableName": "InventoryReservation",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "OrderId",
+				"ToColumnName": "OrderId"
+			}
+		],
+		"RelationshipType": 0,
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Order.cdm.json/Order\",\"toEntity\":\"InventoryReservation.cdm.json/InventoryReservation\",\"joinPairs\":[{\"fromAttribute\":\"OrderId\",\"toAttribute\":\"OrderId\"}]}}"
+		}
+	},
+	"type": "RELATIONSHIP"
+}

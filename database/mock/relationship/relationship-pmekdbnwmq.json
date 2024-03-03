@@ -1,0 +1,26 @@
+{
+	"name": "relationship-pmekdbnwmq",
+	"properties": {
+		"Name": "relationship-pmekdbnwmq",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "mock"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Order",
+		"ToTableName": "OrderAcknowledgementOrder",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "OrderId",
+				"ToColumnName": "OrderId"
+			}
+		],
+		"RelationshipType": 0,
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Order.cdm.json/Order\",\"toEntity\":\"OrderAcknowledgementOrder.cdm.json/OrderAcknowledgementOrder\",\"joinPairs\":[{\"fromAttribute\":\"OrderId\",\"toAttribute\":\"OrderId\"}]}}"
+		}
+	},
+	"type": "RELATIONSHIP"
+}
