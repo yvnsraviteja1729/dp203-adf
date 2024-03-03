@@ -1,0 +1,140 @@
+{
+	"name": "FeedstockType",
+	"properties": {
+		"Name": "FeedstockType",
+		"EntityType": "TABLE",
+		"Namespace": {
+			"DatabaseName": "lake_db"
+		},
+		"Description": "The type of feedstock.\n\nEx:\nFRACTIONATION PROCESS:\nAtmospheric distillation <- Desalted crude oil\nVacuum distillation <- Gas oil, lube stock, residual\n\nCONVERSION PROCESSES - DECOMPOSITION:\nCatalytic cracking <- Gas oil, coke distillate\nCoking <- Gas oil, coke distillate\nHydro-cracking <- Gas oil, cracked oil, residual\nHydrogen steam reforming <- Desulfurized gas, O2, steam\nSteam cracking  <- Heavy fuel/distillate\nVisbreaking  (Reduce viscosity) -> Distillate, tar\n\nCONVERSION PROCESSES - UNIFICATION:\nAlkylation  (Unite olefins & isoparaffins) -> Iso-octane (alkylate)\nGrease compounding <- Lube oil, fatty acid, alky metal\nPolymerizing <- Cracker olefins\n\nCONVERSION PROCESSES - ALTERATION OR REARRANGEMENT:\nCatalytic reforming <- Coker/hydro-cracker naphtha\nIsomerization <- Butane, pentane, hexane\n\nTREATMENT PROCESSES:\nAmine treating <- Sour gas, HCs w/CO2 & H2S\nDesalting <- Crude oil\nDrying & sweetening <- Liq Hcs, LPG, alky feedstock\nFurfural extraction <- Cycle oils & lube feed- stocks\nHydrodesulfurization <- High-sulfur residual/gas oil\nHydrotreating <- Residuals, cracked HC's\nPhenol extraction <- Lube oil base stocks\nSolvent deasphalting <- Vacuum tower residual, propane\nSolvent dewaxing <- Vacuum tower lube oils\nSolvent extraction <- Gas oil, reformate, distillate\nSweetening <- Untreated distillate/gasoline\n\nCHEMICAL PROCESSES:\nEx\nPropene\nNatural Gas\nWater\nEthylene\n1-butene\n1-hexene\nVinylic Comonomers\nHexene\nNitrogen\n\nHydrogen\nNatural Gas Liquids\nCoal\nBy-Product Streams \nCarbon Dioxide (Co2) From Flue Gases\nSyngas\nCarbon Monoxide\nNitrogen\nCarbon Dioxide\nEthane\nBenzene\nBiomass/ Fuelwood\nBiomass/ Pellets\nBiomass/ Charcoal\nBiomass/ Forest Residues\nBiomass/ Black Liquor\nBiomass/ Bioethanol from crops\nBiomass/ Biodiesel from crops\nBiomass/ Biogas from crops/animals\nBiomass/ Municipal waste\n\nNote:\nPropylene may be copolymerized with a range of other olefins, such as ethylene and oc-olefins (1-butene, 1-hexene, etc.). \nThe other olefins are termed comonomers and are incorporated into the growing polymer chain.\n\nOTHER\n\nEx:\nNatural Gas (methanol, ammonia, hydrogen)  \nNaphtha (methanol, ammonia, hydrogen)\nSour Gas\nRich Gas\nRaw Natural Gas\nWet Gas\n\nNote:\nThe type of feedstock depends on the process.\nNatural Gas is a feedstock to product ammonia.\nNatural Gas is the product produced in other processes.\n\nSour Gas \nGas containing a high level of Carbon Dioxide or Hydrogen Sulfide, which are corrosive in the presence of water. They may therefore require drying or removal to preserve the pipeline. \n\nRich Gas \nRich gas is gas with relatively large quantities of heavier fractions in its composition (typically up to about 15%) and thus of high Calorific Value. Also known as Wet Gas.\n\nRaw Natural Gas \nNatural gas still containing impurities and unwanted substances, such as water, nitrogen, carbon dioxide, hydrogen sulfide gas and helium. \n\nWet Gas \nNatural gas containing condensable Hydrocarbons",
+		"TableType": "EXTERNAL",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"StorageDescriptor": {
+			"Columns": [
+				{
+					"Name": "FeedstockTypeId",
+					"Description": "The unique identifier of a feedstock type.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "FeedstockTypeId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FeedstockTypeName",
+					"Description": "The name of a feedstock type.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "FeedstockTypeName"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 256,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FeedstockTypeDescription",
+					"Description": "The description of a feedstock type.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "FeedstockTypeDescription"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 2048,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "CorrosiveQualityId",
+					"Description": "The unique identifier of a corrosive quality.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "CorrosiveQualityId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FeedstockEmissionFactorUnits",
+					"Description": "The feedstock emission factor units.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "FeedstockEmissionFactorUnits"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FeedstockEmissionFactorUomId",
+					"Description": "The feedstock emission factor UOM.",
+					"BaseAttributeReference": {
+						"Entity": "FeedstockType.cdm.json/FeedstockType",
+						"Name": "FeedstockEmissionFactorUomId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				}
+			],
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"FeedstockTypeId\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeId\"},\"FeedstockTypeName\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeName\"},\"FeedstockTypeDescription\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeDescription\"},\"CorrosiveQualityId\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"CorrosiveQualityId\"},\"FeedstockEmissionFactorUnits\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockEmissionFactorUnits\"},\"FeedstockEmissionFactorUomId\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockEmissionFactorUomId\"}}}"
+			},
+			"Compressed": false,
+			"IsStoredAsSubdirectories": false
+		},
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"baseEntityReference\":{\"name\":\"FeedstockType\",\"path\":\"FeedstockType.cdm.json/FeedstockType\"},\"description\":\"The type of feedstock.\\n\\nEx:\\nFRACTIONATION PROCESS:\\nAtmospheric distillation <- Desalted crude oil\\nVacuum distillation <- Gas oil, lube stock, residual\\n\\nCONVERSION PROCESSES - DECOMPOSITION:\\nCatalytic cracking <- Gas oil, coke distillate\\nCoking <- Gas oil, coke distillate\\nHydro-cracking <- Gas oil, cracked oil, residual\\nHydrogen steam reforming <- Desulfurized gas, O2, steam\\nSteam cracking  <- Heavy fuel/distillate\\nVisbreaking  (Reduce viscosity) -> Distillate, tar\\n\\nCONVERSION PROCESSES - UNIFICATION:\\nAlkylation  (Unite olefins & isoparaffins) -> Iso-octane (alkylate)\\nGrease compounding <- Lube oil, fatty acid, alky metal\\nPolymerizing <- Cracker olefins\\n\\nCONVERSION PROCESSES - ALTERATION OR REARRANGEMENT:\\nCatalytic reforming <- Coker/hydro-cracker naphtha\\nIsomerization <- Butane, pentane, hexane\\n\\nTREATMENT PROCESSES:\\nAmine treating <- Sour gas, HCs w/CO2 & H2S\\nDesalting <- Crude oil\\nDrying & sweetening <- Liq Hcs, LPG, alky feedstock\\nFurfural extraction <- Cycle oils & lube feed- stocks\\nHydrodesulfurization <- High-sulfur residual/gas oil\\nHydrotreating <- Residuals, cracked HC's\\nPhenol extraction <- Lube oil base stocks\\nSolvent deasphalting <- Vacuum tower residual, propane\\nSolvent dewaxing <- Vacuum tower lube oils\\nSolvent extraction <- Gas oil, reformate, distillate\\nSweetening <- Untreated distillate/gasoline\\n\\nCHEMICAL PROCESSES:\\nEx\\nPropene\\nNatural Gas\\nWater\\nEthylene\\n1-butene\\n1-hexene\\nVinylic Comonomers\\nHexene\\nNitrogen\\n\\nHydrogen\\nNatural Gas Liquids\\nCoal\\nBy-Product Streams \\nCarbon Dioxide (Co2) From Flue Gases\\nSyngas\\nCarbon Monoxide\\nNitrogen\\nCarbon Dioxide\\nEthane\\nBenzene\\nBiomass/ Fuelwood\\nBiomass/ Pellets\\nBiomass/ Charcoal\\nBiomass/ Forest Residues\\nBiomass/ Black Liquor\\nBiomass/ Bioethanol from crops\\nBiomass/ Biodiesel from crops\\nBiomass/ Biogas from crops/animals\\nBiomass/ Municipal waste\\n\\nNote:\\nPropylene may be copolymerized with a range of other olefins, such as ethylene and oc-olefins (1-butene, 1-hexene, etc.). \\nThe other olefins are termed comonomers and are incorporated into the growing polymer chain.\\n\\nOTHER\\n\\nEx:\\nNatural Gas (methanol, ammonia, hydrogen)  \\nNaphtha (methanol, ammonia, hydrogen)\\nSour Gas\\nRich Gas\\nRaw Natural Gas\\nWet Gas\\n\\nNote:\\nThe type of feedstock depends on the process.\\nNatural Gas is a feedstock to product ammonia.\\nNatural Gas is the product produced in other processes.\\n\\nSour Gas \\nGas containing a high level of Carbon Dioxide or Hydrogen Sulfide, which are corrosive in the presence of water. They may therefore require drying or removal to preserve the pipeline. \\n\\nRich Gas \\nRich gas is gas with relatively large quantities of heavier fractions in its composition (typically up to about 15%) and thus of high Calorific Value. Also known as Wet Gas.\\n\\nRaw Natural Gas \\nNatural gas still containing impurities and unwanted substances, such as water, nitrogen, carbon dioxide, hydrogen sulfide gas and helium. \\n\\nWet Gas \\nNatural gas containing condensable Hydrocarbons\",\"primaryKey\":[\"FeedstockTypeId\"],\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a feedstock type.\",\"isNullable\":false,\"name\":\"FeedstockTypeId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeName\"},\"dataType\":\"string\",\"dataTypeLength\":256,\"description\":\"The name of a feedstock type.\",\"isNullable\":true,\"name\":\"FeedstockTypeName\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockTypeDescription\"},\"dataType\":\"string\",\"dataTypeLength\":2048,\"description\":\"The description of a feedstock type.\",\"isNullable\":true,\"name\":\"FeedstockTypeDescription\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"CorrosiveQualityId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a corrosive quality.\",\"isNullable\":true,\"name\":\"CorrosiveQualityId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockEmissionFactorUnits\"},\"dataType\":\"integer\",\"description\":\"The feedstock emission factor units.\",\"isNullable\":true,\"name\":\"FeedstockEmissionFactorUnits\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"FeedstockType.cdm.json/FeedstockType\",\"name\":\"FeedstockEmissionFactorUomId\"},\"dataType\":\"integer\",\"description\":\"The feedstock emission factor UOM.\",\"isNullable\":true,\"name\":\"FeedstockEmissionFactorUomId\"}]}}}",
+			"Description": "The type of feedstock.\n\nEx:\nFRACTIONATION PROCESS:\nAtmospheric distillation <- Desalted crude oil\nVacuum distillation <- Gas oil, lube stock, residual\n\nCONVERSION PROCESSES - DECOMPOSITION:\nCatalytic cracking <- Gas oil, coke distillate\nCoking <- Gas oil, coke distillate\nHydro-cracking <- Gas oil, cracked oil, residual\nHydrogen steam reforming <- Desulfurized gas, O2, steam\nSteam cracking  <- Heavy fuel/distillate\nVisbreaking  (Reduce viscosity) -> Distillate, tar\n\nCONVERSION PROCESSES - UNIFICATION:\nAlkylation  (Unite olefins & isoparaffins) -> Iso-octane (alkylate)\nGrease compounding <- Lube oil, fatty acid, alky metal\nPolymerizing <- Cracker olefins\n\nCONVERSION PROCESSES - ALTERATION OR REARRANGEMENT:\nCatalytic reforming <- Coker/hydro-cracker naphtha\nIsomerization <- Butane, pentane, hexane\n\nTREATMENT PROCESSES:\nAmine treating <- Sour gas, HCs w/CO2 & H2S\nDesalting <- Crude oil\nDrying & sweetening <- Liq Hcs, LPG, alky feedstock\nFurfural extraction <- Cycle oils & lube feed- stocks\nHydrodesulfurization <- High-sulfur residual/gas oil\nHydrotreating <- Residuals, cracked HC's\nPhenol extraction <- Lube oil base stocks\nSolvent deasphalting <- Vacuum tower residual, propane\nSolvent dewaxing <- Vacuum tower lube oils\nSolvent extraction <- Gas oil, reformate, distillate\nSweetening <- Untreated distillate/gasoline\n\nCHEMICAL PROCESSES:\nEx\nPropene\nNatural Gas\nWater\nEthylene\n1-butene\n1-hexene\nVinylic Comonomers\nHexene\nNitrogen\n\nHydrogen\nNatural Gas Liquids\nCoal\nBy-Product Streams \nCarbon Dioxide (Co2) From Flue Gases\nSyngas\nCarbon Monoxide\nNitrogen\nCarbon Dioxide\nEthane\nBenzene\nBiomass/ Fuelwood\nBiomass/ Pellets\nBiomass/ Charcoal\nBiomass/ Forest Residues\nBiomass/ Black Liquor\nBiomass/ Bioethanol from crops\nBiomass/ Biodiesel from crops\nBiomass/ Biogas from crops/animals\nBiomass/ Municipal waste\n\nNote:\nPropylene may be copolymerized with a range of other olefins, such as ethylene and oc-olefins (1-butene, 1-hexene, etc.). \nThe other olefins are termed comonomers and are incorporated into the growing polymer chain.\n\nOTHER\n\nEx:\nNatural Gas (methanol, ammonia, hydrogen)  \nNaphtha (methanol, ammonia, hydrogen)\nSour Gas\nRich Gas\nRaw Natural Gas\nWet Gas\n\nNote:\nThe type of feedstock depends on the process.\nNatural Gas is a feedstock to product ammonia.\nNatural Gas is the product produced in other processes.\n\nSour Gas \nGas containing a high level of Carbon Dioxide or Hydrogen Sulfide, which are corrosive in the presence of water. They may therefore require drying or removal to preserve the pipeline. \n\nRich Gas \nRich gas is gas with relatively large quantities of heavier fractions in its composition (typically up to about 15%) and thus of high Calorific Value. Also known as Wet Gas.\n\nRaw Natural Gas \nNatural gas still containing impurities and unwanted substances, such as water, nitrogen, carbon dioxide, hydrogen sulfide gas and helium. \n\nWet Gas \nNatural gas containing condensable Hydrocarbons",
+			"DisplayFolderInfo": "{\"name\":\"Network\",\"colorCode\":\"#0050AC\"}",
+			"PrimaryKeys": "FeedstockTypeId"
+		},
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false
+	},
+	"type": "TABLE"
+}

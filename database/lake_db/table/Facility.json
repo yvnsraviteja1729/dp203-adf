@@ -1,0 +1,448 @@
+{
+	"name": "Facility",
+	"properties": {
+		"Name": "Facility",
+		"EntityType": "TABLE",
+		"Namespace": {
+			"DatabaseName": "lake_db"
+		},
+		"Description": "A complex of buildings, equipment and supporting assets that fulfills a specific function or operation.\n\nNote:\nA facility is an above ground infrastructure associated with the operation and maintenance of gas fields, gas plants, water processing and gas/water transmission pipelines (Origin - GIS Technical specification for Field Data Collection).\n\nA collection of surface equipment and meters which facilitate the production, injection or disposition of products. This equipment supports any operation in the processing, development and transportation of products (PPDM).",
+		"TableType": "EXTERNAL",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"StorageDescriptor": {
+			"Columns": [
+				{
+					"Name": "FacilityId",
+					"Description": "The unique identifier of a Facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityName",
+					"Description": "The business name of the Facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityName"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 256,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityDescription",
+					"Description": "The description of the Facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityDescription"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 2048,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityTypeId",
+					"Description": "The unique identifier of a Facility Type.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityTypeId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "LocationId",
+					"Description": "The unique identifier of a Location.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "LocationId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityTelephoneNumber",
+					"Description": "The Facility telephone number.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityTelephoneNumber"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Precision": 15,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityFaxNumber",
+					"Description": "The Facility fax number.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityFaxNumber"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Precision": 15,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityEmailAddress",
+					"Description": "The Facility email address.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityEmailAddress"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 256,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "PartyId",
+					"Description": "The unique identifier of a Party.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "PartyId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "long",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "long"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityNote",
+					"Description": "A note, comment or additional information regarding the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityNote"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 2048,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityFirstOperationalDate",
+					"Description": "The first date of operation of the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityFirstOperationalDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityLastOperationalDate",
+					"Description": "The last operation date of the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityLastOperationalDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityFirstFeasibilityStudyStarted",
+					"Description": "The date that the facility feasibility study was started.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityFirstFeasibilityStudyStarted"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityFeasibilityStudyAcceptedDate",
+					"Description": "The date that the facility feasibility study was accepted.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityFeasibilityStudyAcceptedDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityPermitsAppliedDate",
+					"Description": "The date that permits were applied for.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityPermitsAppliedDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityPermitsReceivedDate",
+					"Description": "The date that permits were applied received for operation.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityPermitsReceivedDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityConstructionStartDate",
+					"Description": "The date that Facility Construction started.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityConstructionStartDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityConstructionCompletedDate",
+					"Description": "The date that Facility Construction was completed.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityConstructionCompletedDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityConstructionCostAmount",
+					"Description": "The facility construction cost amount.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityConstructionCostAmount"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Precision": 18,
+						"Scale": 2,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityFirstProductionDate",
+					"Description": "The date of first production by the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityFirstProductionDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityLastProductionDate",
+					"Description": "The date of last production by the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityLastProductionDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "FacilityClosureDate",
+					"Description": "The date that the facility was closed.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "FacilityClosureDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "DailyCapacityGpmPerDay",
+					"Description": "The daily capacity in barrels per day of the facility.",
+					"BaseAttributeReference": {
+						"Entity": "Facility.cdm.json/Facility",
+						"Name": "DailyCapacityGpmPerDay"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				}
+			],
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"FacilityId\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityId\"},\"FacilityName\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityName\"},\"FacilityDescription\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityDescription\"},\"FacilityTypeId\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityTypeId\"},\"LocationId\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"LocationId\"},\"FacilityTelephoneNumber\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityTelephoneNumber\"},\"FacilityFaxNumber\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFaxNumber\"},\"FacilityEmailAddress\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityEmailAddress\"},\"PartyId\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"PartyId\"},\"FacilityNote\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityNote\"},\"FacilityFirstOperationalDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstOperationalDate\"},\"FacilityLastOperationalDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityLastOperationalDate\"},\"FacilityFirstFeasibilityStudyStarted\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstFeasibilityStudyStarted\"},\"FacilityFeasibilityStudyAcceptedDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFeasibilityStudyAcceptedDate\"},\"FacilityPermitsAppliedDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityPermitsAppliedDate\"},\"FacilityPermitsReceivedDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityPermitsReceivedDate\"},\"FacilityConstructionStartDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionStartDate\"},\"FacilityConstructionCompletedDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionCompletedDate\"},\"FacilityConstructionCostAmount\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionCostAmount\"},\"FacilityFirstProductionDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstProductionDate\"},\"FacilityLastProductionDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityLastProductionDate\"},\"FacilityClosureDate\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityClosureDate\"},\"DailyCapacityGpmPerDay\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"DailyCapacityGpmPerDay\"}}}"
+			},
+			"Compressed": false,
+			"IsStoredAsSubdirectories": false
+		},
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"baseEntityReference\":{\"name\":\"Facility\",\"path\":\"Facility.cdm.json/Facility\"},\"description\":\"A complex of buildings, equipment and supporting assets that fulfills a specific function or operation.\\n\\nNote:\\nA facility is an above ground infrastructure associated with the operation and maintenance of gas fields, gas plants, water processing and gas/water transmission pipelines (Origin - GIS Technical specification for Field Data Collection).\\n\\nA collection of surface equipment and meters which facilitate the production, injection or disposition of products. This equipment supports any operation in the processing, development and transportation of products (PPDM).\",\"primaryKey\":[\"FacilityId\"],\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a Facility.\",\"isNullable\":false,\"name\":\"FacilityId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityName\"},\"dataType\":\"string\",\"dataTypeLength\":256,\"description\":\"The business name of the Facility.\",\"isNullable\":true,\"name\":\"FacilityName\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityDescription\"},\"dataType\":\"string\",\"dataTypeLength\":2048,\"description\":\"The description of the Facility.\",\"isNullable\":true,\"name\":\"FacilityDescription\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityTypeId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a Facility Type.\",\"isNullable\":true,\"name\":\"FacilityTypeId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"LocationId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a Location.\",\"isNullable\":true,\"name\":\"LocationId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityTelephoneNumber\"},\"dataType\":\"decimal\",\"dataTypeLength\":15,\"description\":\"The Facility telephone number.\",\"isNullable\":true,\"scale\":0,\"name\":\"FacilityTelephoneNumber\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFaxNumber\"},\"dataType\":\"decimal\",\"dataTypeLength\":15,\"description\":\"The Facility fax number.\",\"isNullable\":true,\"scale\":0,\"name\":\"FacilityFaxNumber\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityEmailAddress\"},\"dataType\":\"string\",\"dataTypeLength\":256,\"description\":\"The Facility email address.\",\"isNullable\":true,\"name\":\"FacilityEmailAddress\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"PartyId\"},\"dataType\":\"long\",\"description\":\"The unique identifier of a Party.\",\"isNullable\":true,\"name\":\"PartyId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityNote\"},\"dataType\":\"string\",\"dataTypeLength\":2048,\"description\":\"A note, comment or additional information regarding the facility.\",\"isNullable\":true,\"name\":\"FacilityNote\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstOperationalDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The first date of operation of the facility.\",\"isNullable\":true,\"name\":\"FacilityFirstOperationalDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityLastOperationalDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The last operation date of the facility.\",\"isNullable\":true,\"name\":\"FacilityLastOperationalDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstFeasibilityStudyStarted\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that the facility feasibility study was started.\",\"isNullable\":true,\"name\":\"FacilityFirstFeasibilityStudyStarted\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFeasibilityStudyAcceptedDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that the facility feasibility study was accepted.\",\"isNullable\":true,\"name\":\"FacilityFeasibilityStudyAcceptedDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityPermitsAppliedDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that permits were applied for.\",\"isNullable\":true,\"name\":\"FacilityPermitsAppliedDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityPermitsReceivedDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that permits were applied received for operation.\",\"isNullable\":true,\"name\":\"FacilityPermitsReceivedDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionStartDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that Facility Construction started.\",\"isNullable\":true,\"name\":\"FacilityConstructionStartDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionCompletedDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that Facility Construction was completed.\",\"isNullable\":true,\"name\":\"FacilityConstructionCompletedDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityConstructionCostAmount\"},\"dataType\":\"decimal\",\"dataTypeLength\":18,\"description\":\"The facility construction cost amount.\",\"isNullable\":true,\"scale\":2,\"name\":\"FacilityConstructionCostAmount\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityFirstProductionDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date of first production by the facility.\",\"isNullable\":true,\"name\":\"FacilityFirstProductionDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityLastProductionDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date of last production by the facility.\",\"isNullable\":true,\"name\":\"FacilityLastProductionDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"FacilityClosureDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The date that the facility was closed.\",\"isNullable\":true,\"name\":\"FacilityClosureDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Facility.cdm.json/Facility\",\"name\":\"DailyCapacityGpmPerDay\"},\"dataType\":\"integer\",\"description\":\"The daily capacity in barrels per day of the facility.\",\"isNullable\":true,\"name\":\"DailyCapacityGpmPerDay\"}]}}}",
+			"Description": "A complex of buildings, equipment and supporting assets that fulfills a specific function or operation.\n\nNote:\nA facility is an above ground infrastructure associated with the operation and maintenance of gas fields, gas plants, water processing and gas/water transmission pipelines (Origin - GIS Technical specification for Field Data Collection).\n\nA collection of surface equipment and meters which facilitate the production, injection or disposition of products. This equipment supports any operation in the processing, development and transportation of products (PPDM).",
+			"DisplayFolderInfo": "{\"name\":\"Network\",\"colorCode\":\"#0050AC\"}",
+			"PrimaryKeys": "FacilityId"
+		},
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false
+	},
+	"type": "TABLE"
+}

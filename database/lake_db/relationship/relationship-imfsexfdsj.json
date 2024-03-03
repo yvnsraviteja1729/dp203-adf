@@ -1,0 +1,26 @@
+{
+	"name": "relationship-imfsexfdsj",
+	"properties": {
+		"Name": "relationship-imfsexfdsj",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "lake_db"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "StorageContainer",
+		"ToTableName": "StorageTank",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "StorageContainerId",
+				"ToColumnName": "StorageTankId"
+			}
+		],
+		"RelationshipType": 0,
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"StorageContainer.cdm.json/StorageContainer\",\"toEntity\":\"StorageTank.cdm.json/StorageTank\",\"joinPairs\":[{\"fromAttribute\":\"StorageContainerId\",\"toAttribute\":\"StorageTankId\"}]}}"
+		}
+	},
+	"type": "RELATIONSHIP"
+}
