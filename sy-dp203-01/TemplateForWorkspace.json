@@ -917,6 +917,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 6')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) [AirbridgeId]\n,[AirbridgeName]\n,[AirportGateId]\n,[LocationGpsLongitudePosition]\n,[LocationGpsLatitudePosition]\n,[SecurityLevelId]\n FROM [Database1].[dbo].[Airbridge]\n\nINSERT INTO [Database1].[dbo].[custom] values (1,'ravi',32,'3652487913')\nselect * from custom",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Database1",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Database1')]",
 			"type": "Microsoft.Synapse/workspaces/databases",
 			"apiVersion": "2019-06-01-preview",
@@ -978,8 +998,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "AirbridgeId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "AirbridgeName",
@@ -996,8 +1015,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "AirbridgeName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "AirportGateId",
@@ -1013,8 +1031,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "AirportGateId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "LocationGpsLongitudePosition",
@@ -1032,8 +1049,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "LocationGpsLongitudePosition"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "LocationGpsLatitudePosition",
@@ -1051,8 +1067,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "LocationGpsLatitudePosition"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "SecurityLevelId",
@@ -1068,8 +1083,7 @@
 										"BaseAttributeReference": {
 											"Entity": "Airbridge.cdm.json/Airbridge",
 											"Name": "SecurityLevelId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"Format": {
@@ -1080,8 +1094,8 @@
 									"Properties": {
 										"path": "abfss://files@sayvnsdp20302.dfs.core.windows.net/lake_db",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "false",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"escape": "\\",
 										"quote": "\"",
@@ -1139,15 +1153,13 @@
 									{
 										"Name": "id",
 										"OriginDataTypeName": {
-											"TypeName": "string",
+											"TypeName": "integer",
 											"IsComplexType": false,
 											"IsNullable": false,
-											"Length": 256,
 											"Properties": {
-												"HIVE_TYPE_STRING": "string"
+												"HIVE_TYPE_STRING": "integer"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "name",
@@ -1160,22 +1172,19 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "age",
 										"Description": "",
 										"OriginDataTypeName": {
-											"TypeName": "string",
+											"TypeName": "integer",
 											"IsComplexType": false,
 											"IsNullable": false,
-											"Length": 256,
 											"Properties": {
-												"HIVE_TYPE_STRING": "string"
+												"HIVE_TYPE_STRING": "integer"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "phone",
@@ -1188,8 +1197,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"Format": {
@@ -1200,8 +1208,8 @@
 									"Properties": {
 										"path": "abfss://files@sayvnsdp20302.dfs.core.windows.net/mock",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "false",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"escape": "\\",
 										"quote": "\"",
@@ -1265,8 +1273,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Operation_name",
@@ -1278,8 +1285,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Status",
@@ -1291,8 +1297,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Event_category",
@@ -1304,8 +1309,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Level",
@@ -1317,8 +1321,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Time",
@@ -1330,8 +1333,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Subscription",
@@ -1343,8 +1345,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Event_initiated_by",
@@ -1356,8 +1357,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Resource_type",
@@ -1369,8 +1369,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Resource_group",
@@ -1382,8 +1381,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Resource",
@@ -1395,8 +1393,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"Format": {
@@ -1487,24 +1484,6 @@
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/SQL script 6')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "Database1",
-						"poolName": "Built-in"
-					}
-				}
-			},
-			"dependsOn": []
 		}
 	]
 }
