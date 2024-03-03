@@ -15,7 +15,7 @@
 			"Location": "abfss://lake-database@sayvnsdp20302.dfs.core.windows.net/",
 			"Properties": {
 				"FormatType": "csv",
-				"LinkedServiceName": "sy-dp203-01-WorkspaceDefaultStorage"
+				"LinkedServiceName": "ls_sayvnsdp20302"
 			}
 		}
 	},

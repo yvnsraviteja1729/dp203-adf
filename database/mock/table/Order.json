@@ -1412,7 +1412,7 @@
 				"Provider": "ADLS",
 				"Location": "abfss://@.dfs.core.windows.net/Order",
 				"Properties": {
-					"LinkedServiceName": "sy-dp203-01-WorkspaceDefaultStorage",
+					"LinkedServiceName": "ls_sayvnsdp20302",
 					"LocationSetToDatabaseDefault": true
 				}
 			},
