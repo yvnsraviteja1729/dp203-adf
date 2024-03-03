@@ -1,0 +1,23 @@
+{
+	"name": "Database1",
+	"properties": {
+		"Name": "Database1",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true,
+			"DerivedModelDBInfo": "{\"ModelDirectives\":{\"BaseModel\":{\"Name\":\"Airlines\",\"Version\":\"1.3.0\"}}}"
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://lake-database@sayvnsdp20302.dfs.core.windows.net/",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "ls_sayvnsdp20302"
+			}
+		}
+	},
+	"type": "DATABASE"
+}

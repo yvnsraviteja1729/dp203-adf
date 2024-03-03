@@ -1,0 +1,170 @@
+{
+	"name": "Airbridge",
+	"properties": {
+		"Name": "Airbridge",
+		"EntityType": "TABLE",
+		"Namespace": {
+			"DatabaseName": "Database1"
+		},
+		"Description": "An adjustable and mobile bridge, usually covered, by which passengers can go from an airport building to an aircraft.",
+		"TableType": "EXTERNAL",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"StorageDescriptor": {
+			"Columns": [
+				{
+					"Name": "AirbridgeId",
+					"Description": "The unique identifier of an Airbridge.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "AirbridgeId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "AirbridgeName",
+					"Description": "The name of an Airbridge.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "AirbridgeName"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 256,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "AirportGateId",
+					"Description": "The unique identifier of a Room.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "AirportGateId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "LocationGpsLongitudePosition",
+					"Description": "The location GPS position expressed in longitude.\n\nEx:\n\nGPS Coordinates (Ex= 39deg 58.589min) - seconds are converted to decimal format.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "LocationGpsLongitudePosition"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Precision": 10,
+						"Scale": 7,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "LocationGpsLatitudePosition",
+					"Description": "The location GPS position expressed in latitude.\n\nEx:\n\nGPS Coordinates (Ex= 39deg 58.589min) - seconds are converted to decimal format.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "LocationGpsLatitudePosition"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "decimal",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Precision": 10,
+						"Scale": 7,
+						"Properties": {
+							"HIVE_TYPE_STRING": "decimal"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "SecurityLevelId",
+					"Description": "The unique identifier of the Security Level.",
+					"BaseAttributeReference": {
+						"Entity": "Airbridge.cdm.json/Airbridge",
+						"Name": "SecurityLevelId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				}
+			],
+			"Format": {
+				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+				"FormatType": "csv",
+				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+				"Properties": {
+					"path": "abfss://files@sayvnsdp20302.dfs.core.windows.net/lake_db",
+					"delimiter": ",",
+					"multiLine": "false",
+					"firstRowAsHeader": "false",
+					"serialization.format": "1",
+					"escape": "\\",
+					"quote": "\"",
+					"FormatTypeSetToDatabaseDefault": false,
+					"header": "false"
+				}
+			},
+			"Source": {
+				"Provider": "ADLS",
+				"Location": "abfss://files@sayvnsdp20302.dfs.core.windows.net/lake_db",
+				"Properties": {
+					"LinkedServiceName": "sy-dp203-01-WorkspaceDefaultStorage",
+					"LocationSetToDatabaseDefault": false
+				}
+			},
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"AirbridgeId\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirbridgeId\"},\"AirbridgeName\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirbridgeName\"},\"AirportGateId\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirportGateId\"},\"LocationGpsLongitudePosition\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"LocationGpsLongitudePosition\"},\"LocationGpsLatitudePosition\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"LocationGpsLatitudePosition\"},\"SecurityLevelId\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"SecurityLevelId\"}}}"
+			},
+			"Compressed": false,
+			"IsStoredAsSubdirectories": false
+		},
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"name\":\"Airbridge\",\"description\":\"An adjustable and mobile bridge, usually covered, by which passengers can go from an airport building to an aircraft.\",\"baseEntityReference\":{\"name\":\"Airbridge\",\"path\":\"Airbridge.cdm.json/Airbridge\"},\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirbridgeId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of an Airbridge.\",\"isNullable\":false,\"name\":\"AirbridgeId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirbridgeName\"},\"dataType\":\"string\",\"dataTypeLength\":256,\"description\":\"The name of an Airbridge.\",\"isNullable\":true,\"name\":\"AirbridgeName\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"AirportGateId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a Room.\",\"isNullable\":false,\"name\":\"AirportGateId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"LocationGpsLongitudePosition\"},\"dataType\":\"decimal\",\"dataTypeLength\":10,\"description\":\"The location GPS position expressed in longitude.\\n\\nEx:\\n\\nGPS Coordinates (Ex= 39deg 58.589min) - seconds are converted to decimal format.\",\"isNullable\":false,\"scale\":7,\"name\":\"LocationGpsLongitudePosition\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"LocationGpsLatitudePosition\"},\"dataType\":\"decimal\",\"dataTypeLength\":10,\"description\":\"The location GPS position expressed in latitude.\\n\\nEx:\\n\\nGPS Coordinates (Ex= 39deg 58.589min) - seconds are converted to decimal format.\",\"isNullable\":false,\"scale\":7,\"name\":\"LocationGpsLatitudePosition\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"Airbridge.cdm.json/Airbridge\",\"name\":\"SecurityLevelId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of the Security Level.\",\"isNullable\":true,\"name\":\"SecurityLevelId\"}]},\"primaryKey\":[\"AirbridgeId\"]}}",
+			"Description": "An adjustable and mobile bridge, usually covered, by which passengers can go from an airport building to an aircraft.",
+			"DisplayFolderInfo": "{\"name\":\"Airlines\",\"colorCode\":\"#00188F\"}",
+			"PrimaryKeys": "AirbridgeId",
+			"spark.sql.sources.provider": "csv",
+			"sql:IsAppendOnly": false
+		},
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false
+	},
+	"type": "TABLE"
+}
